@@ -6,7 +6,9 @@ const plantSchema=new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
-    nextWatering:Date
+    nextWatering:Date,
+    diesease:String,
+    description: String,
 });
 const Plant=mongoose.model('Plant',plantSchema);
 module.exports=Plant;
