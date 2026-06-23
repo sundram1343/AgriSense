@@ -4,4 +4,4 @@ const get_location=(lon,lat)=>{
         lat=position.coords.latitude;
     });
 }
-module.export={get_location}
+module.exports={get_location}

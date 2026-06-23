@@ -4,4 +4,4 @@ const averageWtaeringTime=new Map([
     ['Loamy SOil',5],
     ['Clay Soil',7],
 ]);
-module.export={averageWtaeringTime}
+module.exports={averageWtaeringTime}
