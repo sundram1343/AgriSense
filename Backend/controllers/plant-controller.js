@@ -3,6 +3,7 @@ const axios = require('axios');
 const {get_location}=require('../utils/Location');
 const {average_watering}=require('../utils/soli_map');
 const {water_check}=require('../utils/water_check');
+const {diseaseSolutions}=require('../utils/disease-solution')
 const diseasedetection=async(req,res)=>{
     try{
         const image=req.body.image;
@@ -44,7 +45,7 @@ const set_watering_alarm=async(req,res)=>{
     get_location(lon,lat);
     const soil_info =await axios.get(`https://www.kaegro.com/farms/api/soil?lat=${lat}&lon=${lon}`);
     const soil_type=soil_info.data.soil_type;
-    const average_watering_time=average_watering[soil_type];
+    const average_watering_time=average_watering.get(soil_type);
     const last_watered=user_input.last_watered;
     const next_watering=last_watered+average_watering_time;
     const newplant= new plant({
@@ -52,5 +53,14 @@ const set_watering_alarm=async(req,res)=>{
         last_watered:last_watered,
         nextWatering:next_watering
     });
+}
+const solution=async(req,res)=>{
+    try{
+        const solution=diseaseSolutions.get(`${disease}`);
+        return res.status(200)
+    }
+    catch(error){
+        return res.status(300).json(error.message);
+    }
 }
 module.exports={diseasedetection, wateringreminder,set_watering_alarm};
