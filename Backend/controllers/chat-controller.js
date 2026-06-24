@@ -4,7 +4,7 @@ const createchat=async(req,res)=>{
     const chatId = uuidv4();
     const user_id=req.body.user_id
     const chat = { chatId, participants, createdAt: new Date() };
-    res.json(chat);
+    await chat.save();
 }
 const usermessage=async(req,res)=>{
     const messageid=uuidx4()
@@ -15,5 +15,6 @@ const usermessage=async(req,res)=>{
         received=false,
         content=req.body.text
     });
+    await message.save();
 }
 module.exports={createchat,usermessage};
