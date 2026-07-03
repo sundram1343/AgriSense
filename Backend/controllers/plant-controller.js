@@ -1,4 +1,4 @@
-const plant = require('../models/plant-model');
+const plant = require('../models/plant');
 const axios = require('axios');
 const {get_location}=require('../utils/Location');
 const {average_watering}=require('../utils/soli_map');

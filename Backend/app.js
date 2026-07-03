@@ -1,0 +1,20 @@
+require('dotenv').config();
+const express=require('express');
+const app=express();
+const cors=require('cors');
+const connectDB=require('./config/db');
+const authrouter=require('./routes/auth-router');
+const chatrouter=require('./routes/chat-router');
+const userrouter=require('./routes/user-router');
+const plantrouter=require('./routes/plant-router');
+app.use(cors());
+app.use(express.json());
+connectDB();
+app.use('/uploads',express.static('uploads'));
+app.use('/auth',authrouter);
+app.use('/chat',chatrouter);
+app.use('/user',userrouter);
+app.use('/plant',plantrouter);
+app.listen(process.env.PORT,()=>{
+    console.log('Server is running');
+});

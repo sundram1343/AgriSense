@@ -3,20 +3,21 @@ const Message=require('../models/messages')
 const User=require('../models/user-model')
 const usermessage=async(req,res)=>{
     try{
-        const chat = await Chat.findById(req.body.chatId);
-        const user=await User.findById(req.body.userId);
+        const {ChatId,userId,text,media}=req.body;
+        const chat = await Chat.findById(ChatId);
+        const user=await User.findById(userId);
         if(!chat){
             chat=new Chat({
                 name:'New Chat',
-                participants:req.body.userId
+                participants:userId
             });
             await Chat.save();
         }
         const newmessage=new Message({
-            chatId=req.body.chatId,
-            media=req.body.media,
-            received=false,
-            content=req.body.text
+            chatId:ChatId,
+            media:media,
+            received:false,
+            content:text
         });
         await newmessage.save();
         chat.message.push(newmessage._id);
@@ -33,7 +34,7 @@ const responsemessage=async(req,res)=>{
     try{
         const response=req.body.message;
         const message=new Message({
-            chatId=req.body.chatId,
+            chatId:req.body.chatId,
             received:true,
             content:req.body.text
         })

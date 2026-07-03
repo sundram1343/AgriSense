@@ -8,5 +8,4 @@ const get_condition=async (lat,lon)=>{
         return "";
     }
 }
-get
 module.exports={get_condition}
